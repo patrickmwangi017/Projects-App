@@ -11,7 +11,6 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <input type="hidden" wire:model="test_id">
                             <label for="exampleFormControlInput2">Test Title</label>
                             <input type="text" class="form-control" id="exampleFormControlInput2" wire:model="title" placeholder="Test title">
                             @error('title') <span class="text-danger error">{{ $message }}</span>@enderror

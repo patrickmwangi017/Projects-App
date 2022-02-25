@@ -13,10 +13,12 @@ class Attempts extends Model
 
     protected $guarded = [];
 
+    protected $primaryKey = 'id';
+
     public function username() {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function testname() {
-    return $this->belongsTo(Tests::class,'test_id');
+    return $this->belongsTo(Tests::class, 'test_id');
     }
 }

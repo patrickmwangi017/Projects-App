@@ -40,9 +40,9 @@
                             <p class="text-muted">{{$instructions}}</p>
 
                             <div class="text-muted mt-4">
-                                <p><i class="mdi mdi-chevron-right text-primary me-1"></i> To achieve this, it would be necessary</p>
-                                <p><i class="mdi mdi-chevron-right text-primary me-1"></i> Separate existence is a myth.</p>
-                                <p><i class="mdi mdi-chevron-right text-primary me-1"></i> If several languages coalesce</p>
+                                <p><i class="mdi mdi-chevron-right text-primary me-1"></i> <strong>You can not access this page after Once you've Submitted</strong> </p>
+                                <p><i class="mdi mdi-chevron-right text-primary me-1"></i> <strong>You can not access this page after Deadline</strong> </p>
+                                <p><i class="mdi mdi-chevron-right text-primary me-1"></i> <strong>Read the instructions carefully</strong> </p>
                             </div>
                             
                             <div class="row task-dates">

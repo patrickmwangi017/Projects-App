@@ -16,6 +16,11 @@ class AllTestsComponent extends Component
     public $status;
     public $test_id;
     public $position;
+    public $aid;
+    public $apos;
+    public $agrade;
+    public $acomments;
+    public $mycount;
 
     private function resetInputFields(){
         $this->title = '';
@@ -27,8 +32,27 @@ class AllTestsComponent extends Component
     public function mount()
     {
         # code...
-        $pos = Attempts::where('test_id', $this->test_id)->get();
-        // dd($pos);
+        if (Auth::check() && Auth::user()->u_type == 'Student'){
+            $mycount = Attempts::where('user_id' , Auth::user()->id)->count();
+            $attempt = Attempts::where('user_id' , Auth::user()->id)->with('testname')->get();
+
+            for($i=0; $i< count($attempt); $i++){
+                $this->aid = $attempt[$i]->test_id;
+                $this->apos = $attempt[$i]->position;
+                dump($this->apos);
+               
+            }
+            foreach($attempt as $key => $value) {
+                // dump($value);
+                // $this->aid = $value->test_id;
+                // $this->apos= $value->position;
+                // $this->agrade = $value->grade;
+                // $this->acomments = $value->comments;
+                // dump($this->acomments);
+              }
+        }
+        
+
 
     }
 
@@ -100,10 +124,10 @@ class AllTestsComponent extends Component
         $tcount = Tests::all()->count();
         $atcount = Tests::where('status' , 'active')->count();
         $stcount = User::where('u_type' , 'Student')->count();
-        $mycount = Attempts::where('user_id' , Auth::user()->id)->count();
-        $attempts = Attempts::where('user_id' , Auth::user()->id)->with('testname')->get()->toArray();
-        // dd($attempts);
         
-        return view('livewire.all-tests-component', compact('testss', 'tcount', 'atcount', 'stcount', 'mycount', 'attempts'))->layout('layouts.sdash');
+        
+        
+        
+        return view('livewire.all-tests-component', compact('testss', 'tcount', 'atcount', 'stcount'))->layout('layouts.sdash');
     }
 }

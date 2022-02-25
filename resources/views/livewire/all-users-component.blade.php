@@ -20,42 +20,45 @@
             </div>
             <!-- end page title -->
             @foreach($userss as $users)
-            <div class="row">
-                @foreach($users as $user)
-                <div class="col-xl-3 col-sm-6">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <div class="avatar-sm mx-auto mb-4">
-                                <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-16">
-                                    {{ substr($user->name, 0, 1); }}
-                                </span>
-                            </div>
-                            <h5 class="font-size-15 mb-1"><a href="javascript: void(0);" class="text-dark">{{$user->name}}</a></h5>
-                            <p class="text-muted">UI/UX Designer</p>
+                <div class="row">
+                    @foreach($users as $user)
+                        <!-- @if($user->u_type != 'Admin') -->
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <div class="avatar-sm mx-auto mb-4">
+                                            <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-16">
+                                                {{ substr($user->fname, 0, 1); }}{{ substr($user->lname, 0, 1); }}
+                                            </span>
+                                        </div>
+                                        <h5 class="font-size-15 mb-1"><a href="javascript: void(0);" class="text-dark">{{$user->fname}} {{$user->lname}} ({{$user->username}})</a></h5>
+                                        <h7 class="font-size-15 mb-1"><a href="javascript: void(0);" class="text-dark">{{$user->email}}</a></h8>
+                                        <p class="text-muted">{{$user->course_of_study}} - Year {{$user->year_of_study}}</p>
 
-                            <div>
-                                <a href="javascript: void(0);" class="badge bg-primary font-size-11 m-1">Photoshop</a>
-                                <a href="javascript: void(0);" class="badge bg-primary font-size-11 m-1">illustrator</a>
+                                        <div>
+                                            <a href="javascript: void(0);" class="badge bg-primary font-size-11 m-1">{{$user->phone}}</a>
+                                            <a href="javascript: void(0);" class="badge bg-primary font-size-11 m-1">{{$user->gender}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-transparent border-top">
+                                        <div class="contact-links d-flex font-size-20">
+                                            <div class="flex-fill">
+                                                <a href="javascript: void(0);"><i class="bx bx-message-square-dots"></i></a>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <a href="javascript: void(0);"><i class="bx bx-pie-chart-alt"></i></a>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <a href="javascript: void(0);"><i class="bx bx-user-circle"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-footer bg-transparent border-top">
-                            <div class="contact-links d-flex font-size-20">
-                                <div class="flex-fill">
-                                    <a href="javascript: void(0);"><i class="bx bx-message-square-dots"></i></a>
-                                </div>
-                                <div class="flex-fill">
-                                    <a href="javascript: void(0);"><i class="bx bx-pie-chart-alt"></i></a>
-                                </div>
-                                <div class="flex-fill">
-                                    <a href="javascript: void(0);"><i class="bx bx-user-circle"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <!-- @endif -->
+                    @endforeach
                 </div>
-                @foreach
-            </div>
-            <!-- end row -->
+                <!-- end row -->
             @endforeach
 
             <div class="row">

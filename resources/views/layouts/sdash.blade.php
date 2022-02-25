@@ -16,6 +16,8 @@
         <!-- Bootstrap Css -->
         <!-- <link href="{{ asset('dash.css') }}" rel="stylesheet"> -->
         <link href="{{ asset('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+
+        <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
         <!-- Icons Css -->
         <link href="{{ asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
@@ -454,15 +456,9 @@
                                     <span key="t-chat">Home</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="{{ route('profile')}}" class="waves-effect">
-                                    <i class="bx bx-home"></i>
-                                    <span key="t-chat">Profile</span>
-                                </a>
-                            </li>
                             @if(Auth::user()->utype == 'Admin')
                             <li>
-                                <a href="#" class="waves-effect">
+                                <a href="{{ route('students')}}" class="waves-effect">
                                     <i class="bx bx-user"></i>
                                     <span key="t-file-manager">Users</span>
                                 </a>
@@ -594,6 +590,12 @@
         <script src="{{ asset('assets/js/pages/form-xeditable.init.js')}}"></script>        
         <script src="{{ asset('assets/js/app.js')}}"></script>
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+        <script>
+            window.livewire.on('alert', param => {
+                toastr[param['type']](param['message'],param['type']);
+            });
+        </script>
         @livewireScripts
     </body>
 

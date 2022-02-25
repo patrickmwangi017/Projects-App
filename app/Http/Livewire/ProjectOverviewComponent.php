@@ -39,6 +39,8 @@ class ProjectOverviewComponent extends Component
         $attempt->test_id = $this->test_id;
         $attempt->url = $this->url;
         $attempt->save();
+        $this->emit('alert', ['type'=>'success', 'message'=>"Project Submitted Successfully."]);
+        return redirect()->route('home');
     }
     public function render()
     {
