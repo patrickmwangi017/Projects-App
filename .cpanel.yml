@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/paychata/studentapp.paychatapp.com
+    - /bin/cp -R * $DEPLOYPATH

@@ -10,6 +10,9 @@
             padding: 5px; 
             max-width: 50px;
         }
+        .displaynone{
+            display:none;
+        }
         .positionbadge{
             /* background: #fff; */
             padding: 10px;
@@ -60,7 +63,7 @@
                                         <div class="flex-grow-1 align-self-center">
                                             <div class="text-muted">
                                                 <p class="mb-2">Welcome to Studentapp Dashboard</p>
-                                                <h5 class="mb-1">{{Auth::user()->name}}</h5>
+                                                <h5 class="mb-1">{{Auth::user()->fname}} {{Auth::user()->lname}}</h5>
                                                 <p class="mb-0">{{Auth::user()->u_type}}</p>
                                             </div>
                                         </div>
@@ -160,7 +163,7 @@
                                             <a href="{{route('project-attempts',['project_id'=>$test->id])}}" class="btn btn-primary float-end">View Attempts</a>
                                         @else
                                             @if($test->attempts && $test->status == 'active')
-                                                @foreach($test->attempts as $attempts)
+                                                @foreach($test->attempts as $attempt)
                                                     @if($attempt->test_id == $test->id && $attempt->user_id == Auth::user()->id) 
                                                         <a href="javascript: void(0);" class="btn btn-info float-end">Pending Review</a>
                                                     @endif  
@@ -198,11 +201,10 @@
                                                     @endif
                                                 @endforeach
                                             @endif
-                                            <!-- @if($test->status == 'closed')
-                                                <a href="javascript: void(0);" class="btn btn-warning float-end">You didn't Attempt</a>
-                                            @endif -->
-                                            @if($test->status == 'active')
-                                                <a href="{{route('project-details',['pid'=>$test->id])}}" class="btn btn-primary float-end">Attempt</a>                                            
+                                            @if($test->status == 'closed')
+                                                <a href="javascript: void(0);" class="btn btn-warning float-end {{ \App\Models\Attempts::where(['test_id' => $test->id && Auth::user()->id == 'user_id'])->count() > 0 ? 'displaynone' : '' }}">You didn't Attempt</a>
+                                            @elseif($test->status == 'active')
+                                                <a href="{{route('project-details',['pid'=>$test->id])}}" class="btn btn-primary float-end {{ \App\Models\Attempts::where(['test_id' => $test->id && 'user_id' == Auth::user()->id])->count() > 0 ? 'displaynone' : '' }}">Attempt</a>                                            
                                             @endif
                                         @endif
                                         

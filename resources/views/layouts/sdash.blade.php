@@ -426,7 +426,14 @@
                                 <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Settings</span></a>
                                 <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span key="t-lock-screen">Lock screen</span></a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="{{ route('logout')}}"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
+                                <form id="logout-form" method= "POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <!-- <li class="menu-item" > -->
+                                    <!-- <a href="{{ route('logout') }}" onclick="event.preventDefault(); closest('form').submit();">Logout</a> -->
+                                    <a class="dropdown-item text-danger" href="{{ route('logout')}}" onclick="event.preventDefault(); closest('form').submit();"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
+                                    <!-- </li> -->
+                                </form>
+                                
                             </div>
                         </div>
 
@@ -456,7 +463,7 @@
                                     <span key="t-chat">Home</span>
                                 </a>
                             </li>
-                            @if(Auth::user()->utype == 'Admin')
+                            @if(Auth::user()->u_type == 'Admin')
                             <li>
                                 <a href="{{ route('students')}}" class="waves-effect">
                                     <i class="bx bx-user"></i>
