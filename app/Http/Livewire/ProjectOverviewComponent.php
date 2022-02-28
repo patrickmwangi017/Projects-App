@@ -16,6 +16,8 @@ class ProjectOverviewComponent extends Component
     public $description;
     public $instructions;
     public $status;
+    public $startdate;
+    public $enddate;
 
     public function mount($pid)
     {
@@ -26,21 +28,24 @@ class ProjectOverviewComponent extends Component
         $this->description = $test->description;
         $this->instructions = $test->instructions;
         $this->status = $test->status;
+        $this->startdate = $test->created_at;
+        $this->enddate = $test->created_at->addDays(30);
+
     }
 
     public function submitAttempt()
     {
         # code...
-        $validatedDate = $this->validate([
-            'url' => 'required|url',
-        ]);
-        $attempt = new Attempts();
-        $attempt->user_id = Auth::user()->id;
-        $attempt->test_id = $this->test_id;
-        $attempt->url = $this->url;
-        $attempt->save();
+        // $validatedDate = $this->validate([
+        //     'url' => 'required|url',
+        // ]);
+        // $attempt = new Attempts();
+        // $attempt->user_id = Auth::user()->id;
+        // $attempt->test_id = $this->test_id;
+        // $attempt->url = $this->url;
+        // $attempt->save();
         $this->emit('alert', ['type'=>'success', 'message'=>"Project Submitted Successfully."]);
-        return redirect()->route('home');
+        return redirect()->route('home')->with('message', 'Project Submitted Successfully.');
     }
     public function render()
     {

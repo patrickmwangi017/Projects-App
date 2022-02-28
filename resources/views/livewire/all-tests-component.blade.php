@@ -43,6 +43,9 @@
 
             <div class="row">
                 <div class="col">
+                    @if(Session::has('message'))
+                        <a href="javascript: void(0);" class="alert alert-success" role="alert">{{Session::get('message')}}</a>
+                    @endif
                     <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i class="fa fa-plus"></i> New Test Project
                     </button>

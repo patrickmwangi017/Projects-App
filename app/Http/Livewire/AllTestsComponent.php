@@ -39,19 +39,19 @@ class AllTestsComponent extends Component
 
     public function newTest()
     {
-            // $validatedDate = $this->validate([
-            //     'title' => 'required',
-            //     'description' => 'required',
-            //     'instructions' => 'required',
-            //     'status' => 'required',
-            // ]);
-            // $test = new Tests();
-            // $test->title = $this->title;
-            // $test->description = $this->description;
-            // $test->instructions = $this->instructions;
-            // $test->status = $this->status;
-            // $test->save();
-            $this->emit('alert', ['type'=>'success', 'message'=>"Test Successfully Submitted."]);
+            $validatedDate = $this->validate([
+                'title' => 'required',
+                'description' => 'required',
+                'instructions' => 'required',
+                'status' => 'required',
+            ]);
+            $test = new Tests();
+            $test->title = $this->title;
+            $test->description = $this->description;
+            $test->instructions = $this->instructions;
+            $test->status = $this->status;
+            $test->save();
+            $this->emit('alert', ['type'=>'success', 'message'=>"Test Successfully Added."]);
             // $this->resetInputFields();
 
             // $this->emit('skillStore'); // Close modal to using to jquery

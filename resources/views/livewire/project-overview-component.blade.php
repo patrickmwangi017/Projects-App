@@ -49,14 +49,14 @@
                                 <div class="col-sm-4 col-6">
                                     <div class="mt-4">
                                         <h5 class="font-size-14"><i class="bx bx-calendar me-1 text-primary"></i> Start Date</h5>
-                                        <p class="text-muted mb-0">08 Sept, 2019</p>
+                                        <p class="text-muted mb-0">{{$startdate}}</p>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-4 col-6">
                                     <div class="mt-4">
                                         <h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i> Due Date</h5>
-                                        <p class="text-muted mb-0">12 Oct, 2019</p>
+                                        <p class="text-muted mb-0">{{$enddate}}</p>
                                     </div>
                                 </div>
                             </div>

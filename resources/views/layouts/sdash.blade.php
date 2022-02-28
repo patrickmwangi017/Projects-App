@@ -18,6 +18,7 @@
         <link href="{{ asset('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
 
         <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
+        
         <!-- Icons Css -->
         <link href="{{ asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
@@ -571,6 +572,7 @@
         <div class="rightbar-overlay"></div>
 
         <!-- JAVASCRIPT -->
+        <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('assets/libs/jquery/jquery.min.js')}}"></script>
         <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
@@ -596,14 +598,13 @@
         <!-- Init js-->
         <script src="{{ asset('assets/js/pages/form-xeditable.init.js')}}"></script>        
         <script src="{{ asset('assets/js/app.js')}}"></script>
-        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+        <!-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
+        @livewireScripts
         <script>
             window.livewire.on('alert', param => {
                 toastr[param['type']](param['message'],param['type']);
             });
         </script>
-        @livewireScripts
     </body>
 
 <!-- Mirrored from themesbrand.com/Studentsapp/layouts/dashboard-saas.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 17 Feb 2022 13:03:20 GMT -->
