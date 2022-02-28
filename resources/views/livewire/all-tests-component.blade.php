@@ -133,88 +133,84 @@
                 </div>
             </div>
             <!-- start row -->
-            @foreach($testss as $tests)
-                <div class="row">
-                    <!-- <div class="card-deck"> -->
-                        @foreach($tests as $test)
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <h5 class="card-header bg-transparent border-bottom text-uppercase">{{$test->title}}</h5>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <h4 class="card-title cardtitlemine {{ $test->status == 'active' ? 'badge-soft-primary' : 'bg-warning' }}" style="">{{$test->status}}</h4>
-                                            </div>
-                                            <div class="col-6">
-                                                @foreach($test->attempts as $attempt)
-                                                    @if($test->status == 'closed' && $attempt->test_id == $test->id  && $attempt->user_id == Auth::user()->id)
-                                                        <a href="javascript: void(0);" class="float-end" style="color: #495057;">Position   <strong class="positionbadge badge-soft-primary" style="color:black;">{{$attempt->position}}</strong></a>
-                                                    @endif
-                                                @endforeach
-                                            </div>
+            <div class="row">
+                <!-- <div class="card-deck"> -->
+                    @foreach($tests as $test)
+                        <div class="col-md-4">
+                            <div class="card">
+                                <h5 class="card-header bg-transparent border-bottom text-uppercase">{{$test->title}}</h5>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h4 class="card-title cardtitlemine {{ $test->status == 'active' ? 'badge-soft-primary' : 'bg-warning' }}" style="">{{$test->status}}</h4>
                                         </div>
-                                        
-                                        <p class="card-text">{{$test->description}}</p>
-                                        <!-- <a href="javascript: void(0);" class="btn btn-primary float-start">Edit</a> -->
-                                        @if(Auth::user()->u_type == "Admin")
-                                            <button type="button" class="float-start" style="background: transparent; border:none; margin-top: 10px;" data-bs-toggle="modal" wire:click="editTests({{ $test->id }})"  data-bs-target="#updateModal">
-                                                <i class="bx bx-edit h4 text-primary"></i>
-                                            </button>
-                                            <a href="{{route('project-attempts',['project_id'=>$test->id])}}" class="btn btn-primary float-end">View Attempts</a>
-                                        @else
-                                            @if($test->attempts && $test->status == 'active')
-                                                @foreach($test->attempts as $attempt)
-                                                    @if($attempt->test_id == $test->id && $attempt->user_id == Auth::user()->id) 
-                                                        <a href="javascript: void(0);" class="btn btn-info float-end">Pending Review</a>
-                                                    @endif  
-                                                @endforeach
-                                            @endif
+                                        <div class="col-6">
+                                            @foreach($attempts as $attempt)
+                                                @if($test->status == 'closed' && $attempt->test_id == $test->id)
+                                                    <a href="javascript: void(0);" class="float-end" style="color: #495057;">Position   <strong class="positionbadge badge-soft-primary" style="color:black;">{{$attempt->position}}</strong></a>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="card-text">{{$test->description}}</p>
+                                    <!-- <a href="javascript: void(0);" class="btn btn-primary float-start">Edit</a> -->
+                                    @if(Auth::user()->u_type == "Admin")
+                                        <button type="button" class="float-start" style="background: transparent; border:none; margin-top: 10px;" data-bs-toggle="modal" wire:click="editTests({{ $test->id }})"  data-bs-target="#updateModal">
+                                            <i class="bx bx-edit h4 text-primary"></i>
+                                        </button>
+                                        <a href="{{route('project-attempts',['project_id'=>$test->id])}}" class="btn btn-primary float-end">View Attempts</a>
+                                    @else
 
-                                            @if($test->attempts && $test->status == 'closed')
-                                                @foreach($test->attempts as $attempt)
-                                                    @if($test->id == $attempt->test_id && $attempt->user_id == Auth::user()->id)
-                                                        @if($attempt->position > 3)
-                                                            <a href="javascript: void(0);" class="btn btn-danger float-start">You Failed</a>
-                                                        @else
-                                                            <a href="javascript: void(0);" class="btn btn-success float-start">You Passed {{$attempt->grade}}</a>
-                                                        @endif
-                                                        <!-- <a href="javascript: void(0);" class="btn btn-warning float-end" style="word-spacing: ;">Comments</a> -->
-                                                        <button type="button" class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#commentModal">
-                                                            View Comments
-                                                        </button>
-                                                        <div class="modal" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Supervisor Commments</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p>{{$attempt->comments}}</p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-                                            @endif
+                                        @if(count($attempts->where('test_id', $test->id)) == 1)
                                             @if($test->status == 'closed')
-                                                <a href="javascript: void(0);" class="btn btn-warning float-end {{ \App\Models\Attempts::where(['test_id' => $test->id && Auth::user()->id == 'user_id'])->count() > 0 ? 'displaynone' : '' }}">You didn't Attempt</a>
-                                            @elseif($test->status == 'active')
-                                                <a href="{{route('project-details',['pid'=>$test->id])}}" class="btn btn-primary float-end {{ \App\Models\Attempts::where(['test_id' => $test->id && 'user_id' == Auth::user()->id])->count() > 0 ? 'displaynone' : '' }}">Attempt</a>                                            
+                                                @if($attempt->position > 3)
+                                                    <a href="javascript: void(0);" class="btn btn-danger float-start">You Failed</a>
+                                                @elseif($attempt->position > 0)
+                                                    <a href="javascript: void(0);" class="btn btn-success float-start">You Passed {{$attempt->grade}}</a>
+                                                @else
+                                                    <a href="javascript: void(0);" class="btn btn-danger float-start">Not Graded</a>
+                                                @endif
+                                                <!-- <a href="javascript: void(0);" class="btn btn-warning float-end" style="word-spacing: ;">Comments</a> -->
+                                                <button type="button" class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#commentModal">
+                                                    View Comments
+                                                </button>
+                                                <div class="modal" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Supervisor Commments</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>{{$attempt->comments}}</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <a href="javascript: void(0);" class="btn btn-info float-end">Pending Review</a>
                                             @endif
                                         @endif
-                                        
-                                    </div>
+
+                                        @if(count($attempts->where('test_id', $test->id)) == 0)
+                                            @if($test->status == 'closed')
+                                                <a href="javascript: void(0);" class="btn btn-warning float-end">You didn't Attempt</a>                                            
+                                            @else
+                                                <a href="{{route('project-details',['pid'=>$test->id])}}" class="btn btn-primary float-end">Attempt</a> 
+                                            @endif
+                                        @endif
+                                    @endif
+                                    
                                 </div>
                             </div>
-                        @endforeach
-                </div>
+                        </div>
+                    @endforeach
+            </div>
                 <!-- end row -->
-            @endforeach
 
         </div> <!-- container-fluid -->
     </div>
